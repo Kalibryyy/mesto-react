@@ -1,17 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../images/logo.svg'; //не используется?
+// import logo from './logo.svg';
+// import './App.css';
 
 function App() {
   return (
-    <div class="page">
-    <header class="header">
-        <div class="logo"></div>
+    <div className="page">
+    <header className="header">
+        <div className="logo"></div>
     </header>
-    <main class="content">
-        <section class="profile">
-            <div class="profile__info">
-                <div class="profile__avatar"></div>
+    <main className="content">
+        <section className="profile">
+            <div className="profile__info">
+                <div className="profile__avatar"></div>
                 <div class="profile__data">
                     <div class="profile__wrap">
                         <h1 class="profile__name">Елена Стрижакова</h1>
