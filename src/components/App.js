@@ -40,65 +40,19 @@ function App() {
       <Header />
       <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
       <Footer />
-      <PopupWithForm name={'profile'} title={'Редактировать профиль'}/>
-      <PopupWithForm name={'new-card'} title={'Новое место'}/>
-      <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'}/>
-      <PopupWithForm name={'avatar'} title={'Обновить аватар'}/>
-    {/* <div className="modal modal_type_profile">
-        <div className="modal__overlay"></div>
-        <form className="modal__container modal__container_type_edit" noValidate>
-            <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
-            <h2 className="modal__title">Редактировать профиль</h2>
-            <input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" value="Елена Стрижакова" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
+      <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" value="Елена Стрижакова" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
             <span id="profile-name-input-error"></span>
             <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" value="Начинающий веб-разработчик и опытный моряк-путешественник" placeholder="Начинающий веб-разработчик и опытный моряк-путешественник"
                 minLength="2" maxLength="200" required />
-            <span id="profile-occupation-input-error"></span>
-            <button type="submit" className="modal__btn" disabled>
-        Сохранить
-      </button>
-        </form>
-    </div>
-    <div className="modal modal_type_new-card">
-        <div className="modal__overlay"></div>
-        <form className="modal__container modal__container_type_add" noValidate>
-            <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
-            <h2 className="modal__title">Новое место</h2>
-            <input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
+            <span id="profile-occupation-input-error"></span></>}/>
+      <PopupWithForm name={'new-card'} title={'Новое место'} children={<><input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
             <span id="card-name-input-error"></span>
             <input id="card-occupation-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-occupation-input-error"></span>
-            <button type="submit" className="modal__btn" disabled>
-        Сохранить
-      </button>
-        </form>
-    </div>
-
-    <div className="modal modal_type_confirm-card-del">
-        <div className="modal__overlay"></div>
-        <form className="modal__container modal__container_type_confirm-card-del" noValidate>
-            <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
-            <h2 className="modal__title">Вы уверены?</h2>
-            <button type="submit" className="modal__btn">
-        Да
-      </button>
-        </form>
-    </div>
-
-    <div className="modal modal_type_avatar">
-        <div className="modal__overlay"></div>
-        <form className="modal__container modal__container_type_avatar" noValidate>
-            <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
-            <h2 className="modal__title">Обновить аватар</h2>
-            <input id="card-avatar-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-avatar-input-error"></span>
-            <button type="submit" className="modal__btn">
-        Сохранить
-      </button>
-        </form>
-    </div> */}
-
-<ImagePopup />
+            <span id="card-occupation-input-error"></span></>}/>
+      <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
+      <PopupWithForm name={'avatar'} title={'Обновить аватар'} children={<><input id="card-avatar-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
+            <span id="card-avatar-input-error"></span></>}/>
+      <ImagePopup />
 
     <template className="template template_type_default">
     <li className="elements__item">
