@@ -2,11 +2,27 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import ImagePopup from './ImagePopup';
+import PopupWithForm from './PopupWithForm';
 import logo from '../images/logo.svg'; //не используется?
 // import logo from './logo.svg';
 // import './App.css';
 
 function App() {
+
+  // function Switch(props) {
+  //   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
+  //   function handleClick() {
+  //     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  //   }
+
+  
+  // }
+
+  // const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  // const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
   function handleEditAvatarClick () {
     document.querySelector('.modal_type_avatar').classList.add('modal_opened');
   }
@@ -22,9 +38,13 @@ function App() {
   return (
     <div className="page">
       <Header />
-      <Main handleEditAvatarClick={handleEditAvatarClick} handleEditProfileClick={handleEditProfileClick} handleAddPlaceClick={handleAddPlaceClick}/>
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
       <Footer />
-    <div className="modal modal_type_profile">
+      <PopupWithForm name={'profile'} title={'Редактировать профиль'}/>
+      <PopupWithForm name={'new-card'} title={'Новое место'}/>
+      <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'}/>
+      <PopupWithForm name={'avatar'} title={'Обновить аватар'}/>
+    {/* <div className="modal modal_type_profile">
         <div className="modal__overlay"></div>
         <form className="modal__container modal__container_type_edit" noValidate>
             <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
@@ -76,16 +96,9 @@ function App() {
         Сохранить
       </button>
         </form>
-    </div>
+    </div> */}
 
-    <div className="modal modal_type_picture">
-        <div className="modal__overlay modal__overlay_image"></div>
-        <div className="modal__wrapper">
-            <img src="./images/element-usa.JPG" alt="Название места" className="modal__picture-image" />
-            <p className="modal__picture-text"></p>
-            <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
-        </div>
-    </div>
+<ImagePopup />
 
     <template className="template template_type_default">
     <li className="elements__item">
