@@ -4,35 +4,27 @@ import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
-import logo from '../images/logo.svg'; //не используется?
-// import logo from './logo.svg';
+import logo from '../images/logo.svg'; 
 // import './App.css';
 
 function App() {
 
-  // function Switch(props) {
-  //   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
-  //   function handleClick() {
-  //     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
-  //   }
-
-  
-  // }
-
-  // const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  // const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-
-  function handleEditAvatarClick () {
-    document.querySelector('.modal_type_avatar').classList.add('modal_opened');
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
+  
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
 
   function handleEditProfileClick () {
-    document.querySelector('.modal_type_profile').classList.add('modal_opened');
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
   function handleAddPlaceClick () {
-    document.querySelector('.modal_type_new-card').classList.add('modal_opened');
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
   return (
@@ -44,14 +36,14 @@ function App() {
             <span id="profile-name-input-error"></span>
             <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" value="Начинающий веб-разработчик и опытный моряк-путешественник" placeholder="Начинающий веб-разработчик и опытный моряк-путешественник"
                 minLength="2" maxLength="200" required />
-            <span id="profile-occupation-input-error"></span></>}/>
+            <span id="profile-occupation-input-error"></span></>} isOpen={isEditProfilePopupOpen}/>
       <PopupWithForm name={'new-card'} title={'Новое место'} children={<><input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
             <span id="card-name-input-error"></span>
             <input id="card-occupation-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-occupation-input-error"></span></>}/>
+            <span id="card-occupation-input-error"></span></>} isOpen={isAddPlacePopupOpen}/>
       <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
       <PopupWithForm name={'avatar'} title={'Обновить аватар'} children={<><input id="card-avatar-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-avatar-input-error"></span></>}/>
+            <span id="card-avatar-input-error"></span></>} isOpen={isEditAvatarPopupOpen}/>
       <ImagePopup />
 
     <template className="template template_type_default">

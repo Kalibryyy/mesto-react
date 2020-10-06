@@ -2,7 +2,7 @@ import React from 'react';
 
 function PopupWithForm(props) {
     return (
-        <div className={`modal modal_type_${props.name} props.isOpen ? modal_opened}`}> 
+        <div className={props.isOpen ? `modal modal_type_${props.name} modal_opened` : `modal modal_type_${props.name}`}> 
         <div className="modal__overlay"></div>
         <form className={`modal__container modal__container_type_${props.name}`} noValidate>
             <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
@@ -17,3 +17,7 @@ function PopupWithForm(props) {
 }
 
 export default PopupWithForm;
+
+{/* <div>
+    {isLunchTime && <h2>Время обеда!</h2>}
+  </div> */}
