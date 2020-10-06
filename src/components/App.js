@@ -27,23 +27,33 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  function closeAllPopups () {
+    if (isEditAvatarPopupOpen) {
+      setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    } else if (isEditProfilePopupOpen) {
+      setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    } else if (isAddPlacePopupOpen) {
+      setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    }
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups}/>
       <Footer />
       <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" value="Елена Стрижакова" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
             <span id="profile-name-input-error"></span>
             <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" value="Начинающий веб-разработчик и опытный моряк-путешественник" placeholder="Начинающий веб-разработчик и опытный моряк-путешественник"
                 minLength="2" maxLength="200" required />
-            <span id="profile-occupation-input-error"></span></>} isOpen={isEditProfilePopupOpen}/>
+            <span id="profile-occupation-input-error"></span></>} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isClose={isEditProfilePopupOpen}/>
       <PopupWithForm name={'new-card'} title={'Новое место'} children={<><input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
             <span id="card-name-input-error"></span>
             <input id="card-occupation-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-occupation-input-error"></span></>} isOpen={isAddPlacePopupOpen}/>
+            <span id="card-occupation-input-error"></span></>} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} isClose={isAddPlacePopupOpen}/>
       <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
       <PopupWithForm name={'avatar'} title={'Обновить аватар'} children={<><input id="card-avatar-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-avatar-input-error"></span></>} isOpen={isEditAvatarPopupOpen}/>
+            <span id="card-avatar-input-error"></span></>} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen}/>
       <ImagePopup />
 
     <template className="template template_type_default">
