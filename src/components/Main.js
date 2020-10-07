@@ -1,21 +1,22 @@
 import React from 'react';
 import { api } from '../utils/Api.js';
+import Card from './Card';
 
 function Main(props) {
     const [userName, setUserName] = React.useState();
 
-    console.log(userName);
+    // console.log(userName);
     // quatro veces
 
     const [userDescription, setUserDescription] = React.useState();
-    console.log(userDescription);
+    // console.log(userDescription);
 
     const [userAvatar, setUserAvatar] = React.useState();
-    console.log(userAvatar);
+    // console.log(userAvatar);
 
     React.useEffect(() => {
 
-        api._getUserInfo('users/me')
+        api.getUserInfo('users/me')
           .then((data) => {
             setUserName(data.name);
             setUserDescription(data.about);
@@ -23,6 +24,17 @@ function Main(props) {
             })
             .catch(err => console.log(err));
     });
+
+    const [cards, setCards] = React.useState([]);
+
+    React.useEffect(() => {
+
+        api.getInitialCards('cards')
+          .then((data) => {
+              setCards(data);
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     return (
         <main className="content">
@@ -40,8 +52,7 @@ function Main(props) {
             <button className="profile__add-button hover" onClick={props.onAddPlace}>+</button>
         </section>
         <section className="elements">
-            <ul className="elements__list">
-            </ul>
+            <Card cards={cards}/>
         </section>
         <div className="spinner spinner_hidden"><i></i></div>
     </main>
