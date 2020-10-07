@@ -1,13 +1,14 @@
 import React from 'react'; 
+import closeIcon from '../images/close-icon.svg';
 
-function ImagePopup() {
+function ImagePopup(props) {
     return (
-        <div className="modal modal_type_picture">
+        <div className={props.card.link ? `modal modal_type_picture modal_opened` : `modal modal_type_picture`}>
         <div className="modal__overlay modal__overlay_image"></div>
         <div className="modal__wrapper">
-            <img src="./images/element-usa.JPG" alt="Название места" className="modal__picture-image" />
-            <p className="modal__picture-text"></p>
-            <img src="./images/close-icon.svg" alt="закрывающая иконка" className="modal__close hover" />
+            <img src={props.card.link} alt={props.card.name} className="modal__picture-image" />
+            <p className="modal__picture-text">{props.card.name}</p>
+            <img src={closeIcon} alt="закрывающая иконка" className="modal__close hover" />
         </div>
     </div>
     )

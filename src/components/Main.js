@@ -52,11 +52,19 @@ function Main(props) {
             <button className="profile__add-button hover" onClick={props.onAddPlace}>+</button>
         </section>
         <section className="elements">
-            <Card cards={cards}/>
+            <ul className="elements__list">
+                {cards.map((card) => (
+                    <Card card={card} onCardClick={props.onCardClick} />
+                ))}
+            </ul>
         </section>
         <div className="spinner spinner_hidden"><i></i></div>
     </main>
     )
 }
+
+
+    // {cards.map((card, i) => <Card key={i} card={card} onCardClick={onCardClick} />)}
+ 
 
 export default Main;

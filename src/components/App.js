@@ -37,10 +37,16 @@ function App() {
     }
   }
 
+  const [selectedCard, setSelectedCard] = React.useState({});
+
+  function handleCardClick (card) {
+    setSelectedCard(card);
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups}/>
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} />
       <Footer />
       <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" value="Елена Стрижакова" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
             <span id="profile-name-input-error"></span>
@@ -54,23 +60,8 @@ function App() {
       <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
       <PopupWithForm name={'avatar'} title={'Обновить аватар'} children={<><input id="card-avatar-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
             <span id="card-avatar-input-error"></span></>} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen}/>
-      <ImagePopup />
-
-    <template className="template template_type_default">
-    <li className="elements__item">
-      <img src="./images/element-trash.png" alt="" className="elements__basket" />
-    <img src="#" alt="Название места" className="elements__image" />
-    <div className="elements__footer">
-      <h2 className="elements__text"></h2>
-      <div className="elements__like-container">
-        <button className="elements__like" type="button"></button>
-        <div className="elements__likes-number"></div>
-      </div>   
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} onCardClick={handleCardClick} />
     </div>
-  </li>
-  </template>
-
-</div>
   );
 }
 
