@@ -21,6 +21,6 @@
 
 **Демо**
 
-* [Ссылка на демо проекта](https://kalibryyy.github.io/mesto/)
+* [Ссылка на демо проекта](https://kalibryyy.github.io/mesto-react/)
 
 
