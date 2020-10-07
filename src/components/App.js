@@ -25,6 +25,12 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const [selectedCard, setSelectedCard] = React.useState({});
+
+  function handleCardClick (card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups () {
     if (isEditAvatarPopupOpen) {
       setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -35,12 +41,6 @@ function App() {
     } else if (selectedCard.link) {
       setSelectedCard(!selectedCard.link);
     }
-  }
-
-  const [selectedCard, setSelectedCard] = React.useState({});
-
-  function handleCardClick (card) {
-    setSelectedCard(card);
   }
 
   return (
