@@ -4,7 +4,7 @@ class Api {
     this.headers = options.headers;
   }
 
-  getInitialCards(path) {
+  _getInitialCards(path) {
     return fetch(`${this._url}${path}`, {
         headers: this.headers
       })
@@ -12,7 +12,7 @@ class Api {
       .catch(this.showError);
   }
 
-  getUserInfo(path) {
+  _getUserInfo(path) {
     return fetch(`${this._url}${path}`, {
         headers: this.headers
       })

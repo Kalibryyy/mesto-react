@@ -3,35 +3,22 @@ import { api } from '../utils/Api.js';
 import Card from './Card';
 
 function Main(props) {
-    const [userName, setUserName] = React.useState();
+    const [userName, setUserName] = React.useState('Жак Ив Кусто');
 
-    // console.log(userName);
-    // quatro veces
+    const [userDescription, setUserDescription] = React.useState('Исследователь океана');
 
-    const [userDescription, setUserDescription] = React.useState();
-    // console.log(userDescription);
-
-    const [userAvatar, setUserAvatar] = React.useState();
-    // console.log(userAvatar);
-
-    React.useEffect(() => {
-
-        api.getUserInfo('users/me')
-          .then((data) => {
-            setUserName(data.name);
-            setUserDescription(data.about);
-            setUserAvatar(data.avatar);
-            })
-            .catch(err => console.log(err));
-    });
+    const [userAvatar, setUserAvatar] = React.useState('https://images.unsplash.com/photo-1559962219-f52ccd86944e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80');
 
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-
-        api.getInitialCards('cards')
+        api.getAppInfo('users/me', 'cards')
           .then((data) => {
-              setCards(data);
+            const [userData, cardsArray] = data;
+            setUserName(userData.name);
+            setUserDescription(userData.about);
+            setUserAvatar(userData.avatar);
+            setCards(cardsArray)
             })
             .catch(err => console.log(err));
     }, []);
@@ -62,9 +49,5 @@ function Main(props) {
     </main>
     )
 }
-
-
-    // {cards.map((card, i) => <Card key={i} card={card} onCardClick={onCardClick} />)}
- 
 
 export default Main;

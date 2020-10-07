@@ -4,8 +4,6 @@ import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
-import logo from '../images/logo.svg'; 
-// import './App.css';
 
 function App() {
 
@@ -35,7 +33,6 @@ function App() {
     } else if (isAddPlacePopupOpen) {
       setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
     } else if (selectedCard.link) {
-      console.log(selectedCard.link);
       setSelectedCard(!selectedCard.link);
     }
   }
