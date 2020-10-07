@@ -8,7 +8,7 @@ function ImagePopup(props) {
         <div className="modal__wrapper">
             <img src={props.card.link} alt={props.card.name} className="modal__picture-image" />
             <p className="modal__picture-text">{props.card.name}</p>
-            <img src={closeIcon} alt="закрывающая иконка" className="modal__close hover" />
+            <img src={closeIcon} alt="закрывающая иконка" className="modal__close hover" onClick={props.onClose} />
         </div>
     </div>
     )

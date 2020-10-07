@@ -34,6 +34,9 @@ function App() {
       setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
     } else if (isAddPlacePopupOpen) {
       setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    } else if (selectedCard.link) {
+      console.log(selectedCard.link);
+      setSelectedCard(!selectedCard.link);
     }
   }
 
