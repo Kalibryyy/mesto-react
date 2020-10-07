@@ -6,7 +6,7 @@ function Card(props) {
     } 
 
     return (
-        <li className="elements__item" key={props.card._id}>
+        <>
             <img src="./images/element-trash.png" alt="" className="elements__basket" />
             <img src={props.card.link} alt={props.card.name} className="elements__image" onClick={handleClick} />
             <div className="elements__footer">
@@ -16,8 +16,8 @@ function Card(props) {
                     <div className="elements__likes-number">{props.card.likes.length}</div>
                 </div>   
             </div>
-        </li> 
-    )
+        </>
+    )       
 }
 
 export default Card;

@@ -48,9 +48,9 @@ function App() {
       <Header />
       <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} />
       <Footer />
-      <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" value="Елена Стрижакова" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
+      <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
             <span id="profile-name-input-error"></span>
-            <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" value="Начинающий веб-разработчик и опытный моряк-путешественник" placeholder="Начинающий веб-разработчик и опытный моряк-путешественник"
+            <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" placeholder="Начинающий веб-разработчик и опытный моряк-путешественник"
                 minLength="2" maxLength="200" required />
             <span id="profile-occupation-input-error"></span></>} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isClose={isEditProfilePopupOpen}/>
       <PopupWithForm name={'new-card'} title={'Новое место'} children={<><input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
