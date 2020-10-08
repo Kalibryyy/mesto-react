@@ -1,4 +1,5 @@
 import React from 'react';
+import basketImage from '../images/element-trash.png';
 
 function Card(props) {
     function handleClick() {
@@ -7,7 +8,7 @@ function Card(props) {
 
     return (
         <>
-            <img src="./images/element-trash.png" alt="" className="elements__basket" />
+            {props.card.owner._id === props.userId && <img src={basketImage} alt="иконка мусорной корзины" className="elements__basket" />}
             <img src={props.card.link} alt={props.card.name} className="elements__image" onClick={handleClick} />
             <div className="elements__footer">
                 <h2 className="elements__text">{props.card.name}</h2>

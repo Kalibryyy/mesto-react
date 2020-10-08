@@ -8,37 +8,32 @@ import PopupWithForm from './PopupWithForm';
 function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
   
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-
   function handleEditProfileClick () {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-
   function handleAddPlaceClick () {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
-
-  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleCardClick (card) {
     setSelectedCard(card);
   }
 
   function closeAllPopups () {
-    if (isEditAvatarPopupOpen) {
-      setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
-    } else if (isEditProfilePopupOpen) {
-      setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-    } else if (isAddPlacePopupOpen) {
-      setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
-    } else if (selectedCard.link) {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    
+    if (selectedCard.link) {
       setSelectedCard(!selectedCard.link);
     }
   }
