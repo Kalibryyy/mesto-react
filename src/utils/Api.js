@@ -12,7 +12,7 @@ class Api {
       .catch(this.showError);
   }
 
-  _getUserInfo(path) {
+  getUserInfo(path) {
     return fetch(`${this._url}${path}`, {
         headers: this.headers
       })
@@ -21,7 +21,7 @@ class Api {
   }
 
   getAppInfo(userDataPath, cardsDataPath) {
-    return Promise.all([this._getUserInfo(userDataPath), this._getInitialCards(cardsDataPath)])
+    return Promise.all([this.getUserInfo(userDataPath), this._getInitialCards(cardsDataPath)])
   }
 
   updateInfo(path, data) {
