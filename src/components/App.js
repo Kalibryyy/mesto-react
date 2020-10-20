@@ -57,13 +57,14 @@ function App() {
   function handleCardDelete(id) {
     api.delete('cards', id)
     .then((delCard) => {
+      console.log(delCard);
       const newCards = cards.filter((c) => {
-        return c._id !== delCard; 
+        return c._id !== id; 
       });
       setCards(newCards);
     })
     .catch(err => console.log(err));
-  } //после перезагрузки?
+  } 
 
   function handleCardLike(card) {
     // Проверяем, есть ли уже лайк на этой карточке
