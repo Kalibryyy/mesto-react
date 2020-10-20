@@ -6,6 +6,7 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { CardsContext } from '../contexts/CardsContext';
 
 function App() {
 
@@ -14,14 +15,17 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserInfo('users/me')
-    .then((data) => {
-      console.log(data);
-      setCurrentUser(data);
-    })
-    .catch(err => console.log(err));
+      api.getAppInfo('users/me', 'cards')
+        .then((data) => {
+          const [userData, cardsArray] = data;
+          setCards(cardsArray);
+          console.log(userData);
+          setCurrentUser(userData);
+          })
+          .catch(err => console.log(err));
   }, []);
 
   function handleEditAvatarClick() {
@@ -50,11 +54,46 @@ function App() {
     }
   }
 
+  function handleCardDelete(id) {
+    api.delete('cards', id)
+    .then((delCard) => {
+      const newCards = cards.filter((c) => {
+        return c._id !== delCard; 
+      });
+      setCards(newCards);
+    })
+    .catch(err => console.log(err));
+  } //после перезагрузки?
+
+  function handleCardLike(card) {
+    // Проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    if (!isLiked) {
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.put('cards/likes', card._id) 
+        .then((newCard) => {
+        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+        // Обновляем стейт
+        setCards(newCards);
+        });
+    } else {
+      api.delete('cards/likes', card._id) 
+        .then((newCard) => {
+        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+        // Обновляем стейт
+        setCards(newCards);
+        });
+    }
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
+    <CardsContext.Provider value={cards}> 
     <div className="page">
       <Header />
-      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} />
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} cards={cards} onCardDelete={handleCardDelete} onCardLike={handleCardLike} />
       <Footer />
       <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
             <span id="profile-name-input-error"></span>
@@ -70,6 +109,7 @@ function App() {
             <span id="card-avatar-input-error"></span></>} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen}/>
       <ImagePopup card={selectedCard} onClose={closeAllPopups} onCardClick={handleCardClick} />
     </div>
+    </CardsContext.Provider> 
     </CurrentUserContext.Provider>
   );
 }
