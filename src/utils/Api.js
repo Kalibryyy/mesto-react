@@ -24,13 +24,13 @@ class Api {
     return Promise.all([this.getUserInfo(userDataPath), this._getInitialCards(cardsDataPath)])
   }
 
-  updateInfo(path, data) {
+  updateInfo(path, {name, about}) {
     return fetch(`${this._url}${path}`, {
         method: "PATCH",
         headers: this.headers,
         body: JSON.stringify({
-          name: data.name,
-          about: data.link
+          name: name,
+          about: about
         })
       })
       .then(this.checkStatus)

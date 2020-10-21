@@ -4,6 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditPropfilePopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { CardsContext } from '../contexts/CardsContext';
@@ -56,8 +57,7 @@ function App() {
 
   function handleCardDelete(id) {
     api.delete('cards', id)
-    .then((delCard) => {
-      console.log(delCard);
+    .then(() => {
       const newCards = cards.filter((c) => {
         return c._id !== id; 
       });
@@ -73,7 +73,7 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.put('cards/likes', card._id) 
         .then((newCard) => {
-        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        // Формируем новый массив на основе имеющегося
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         // Обновляем стейт
         setCards(newCards);
@@ -81,12 +81,22 @@ function App() {
     } else {
       api.delete('cards/likes', card._id) 
         .then((newCard) => {
-        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        // Формируем новый массив на основе имеющегося
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         // Обновляем стейт
         setCards(newCards);
         });
     }
+  }
+
+  function handleUpdateUser({ name, about }) {
+    api.updateInfo('users/me', { name, about })
+    .then((data) => {
+      console.log(data);
+      setCurrentUser(data);
+    })
+    .catch(err => console.log(`Error ${err}`));
+    closeAllPopups();
   }
 
   return (
@@ -96,11 +106,7 @@ function App() {
       <Header />
       <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} cards={cards} onCardDelete={handleCardDelete} onCardLike={handleCardLike} />
       <Footer />
-      <PopupWithForm name={'profile'} title={'Редактировать профиль'} children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Елена Стрижакова" minLength="2" maxLength="40" required />
-            <span id="profile-name-input-error"></span>
-            <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" placeholder="Начинающий веб-разработчик и опытный моряк-путешественник"
-                minLength="2" maxLength="200" required />
-            <span id="profile-occupation-input-error"></span></>} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isClose={isEditProfilePopupOpen}/>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isClose={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} /> 
       <PopupWithForm name={'new-card'} title={'Новое место'} children={<><input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
             <span id="card-name-input-error"></span>
             <input id="card-occupation-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />

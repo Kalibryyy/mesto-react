@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../utils/Api.js';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 // import { CardsContext } from '../contexts/CardsContext';
