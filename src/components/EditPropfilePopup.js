@@ -34,15 +34,15 @@ function EditProfilePopup(props) {
     }
 
     return (
-        <PopupWithForm name={'profile'} title={'Редактировать профиль'} 
-        children={<><input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" 
-        placeholder="Елена Стрижакова" minLength="2" maxLength="40" required onChange={handleNameChange} value={name || ''} />
-        <span id="profile-name-input-error"></span>
-        <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" 
-        placeholder="Начинающий веб-разработчик и опытный моряк-путешественник" minLength="2" maxLength="200" required value={description || ''} 
-        onChange={handleDescriptionChange} />
-        <span id="profile-occupation-input-error"></span></>} 
-        isOpen={props.isOpen} onClose={props.onClose} isClose={props.isOpen} onSubmit={handleSubmit}/>
+        <PopupWithForm name={'profile'} title={'Редактировать профиль'} isOpen={props.isOpen} onClose={props.onClose} isClose={props.isOpen} onSubmit={handleSubmit}>
+            <input id="profile-name-input" type="text" className="modal__input modal__input_type_name" name="name" 
+            placeholder="Елена Стрижакова" minLength="2" maxLength="40" required onChange={handleNameChange} value={name || ''} />
+            <span id="profile-name-input-error"></span>
+            <input id="profile-occupation-input" type="text" className="modal__input modal__input_type_occupation" name="link" 
+            placeholder="Начинающий веб-разработчик и опытный моряк-путешественник" minLength="2" maxLength="200" required value={description || ''} 
+            onChange={handleDescriptionChange} />
+            <span id="profile-occupation-input-error"></span>
+        </PopupWithForm>
     )
 }
 

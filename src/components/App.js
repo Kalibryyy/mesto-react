@@ -26,7 +26,7 @@ function App() {
           console.log(userData);
           setCurrentUser(userData);
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log(`Error ${err}`));
   }, []);
 
   function handleEditAvatarClick() {
@@ -63,7 +63,7 @@ function App() {
       });
       setCards(newCards);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(`Error ${err}`));
   } 
 
   function handleCardLike(card) {
@@ -77,7 +77,8 @@ function App() {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         // Обновляем стейт
         setCards(newCards);
-        });
+        })
+        .catch(err => console.log(`Error ${err}`));
     } else {
       api.delete('cards/likes', card._id) 
         .then((newCard) => {
@@ -85,7 +86,8 @@ function App() {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         // Обновляем стейт
         setCards(newCards);
-        });
+        })
+        .catch(err => console.log(`Error ${err}`));
     }
   }
 

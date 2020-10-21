@@ -9,7 +9,7 @@ function PopupWithForm(props) {
             <img src={closeIcon} alt="закрывающая иконка" className="modal__close hover" onClick={props.onClose} />
             <h2 className="modal__title">{props.title}</h2>
             {props.children}
-            <button type="submit" className="modal__btn" disabled>
+            <button type="submit" className="modal__btn">
         Сохранить
       </button>
         </form>
