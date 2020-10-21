@@ -6,9 +6,9 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditPropfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { CardsContext } from '../contexts/CardsContext';
 
 function App() {
 
@@ -24,7 +24,6 @@ function App() {
         .then((data) => {
           const [userData, cardsArray] = data;
           setCards(cardsArray);
-          console.log(userData);
           setCurrentUser(userData);
           })
           .catch(err => console.log(`Error ${err}`));
@@ -105,8 +104,16 @@ function App() {
     console.log({ avatar });
     api.updateAvatar('users/me/avatar', { avatar })
     .then((data) => {
-      console.log(data);
       setCurrentUser(data);
+      closeAllPopups();
+    })
+    .catch(err => console.log(`Error ${err}`));
+  }
+
+  function handleAddPlace({ name, link }) {
+    api.addCard('cards', { name, link })
+    .then((newCard) => {
+      setCards([newCard, ...cards]); 
       closeAllPopups();
     })
     .catch(err => console.log(`Error ${err}`));
@@ -114,21 +121,16 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <CardsContext.Provider value={cards}> 
     <div className="page">
       <Header />
       <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} cards={cards} onCardDelete={handleCardDelete} onCardLike={handleCardLike} />
       <Footer />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isClose={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} /> 
-      <PopupWithForm name={'new-card'} title={'Новое место'} children={<><input id="card-name-input" type="text" className="modal__input modal__input_type_name" name="name" placeholder="Название" minLength="1" maxLength="30" required />
-            <span id="card-name-input-error"></span>
-            <input id="card-occupation-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-occupation-input-error"></span></>} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} isClose={isAddPlacePopupOpen}/>
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} isClose={isAddPlacePopupOpen} onAddPlace={handleAddPlace}/>
       <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
       <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen} onCardClick={handleCardClick} onUpdateAvatar={handleUpdateAvatar}/> 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} onCardClick={handleCardClick} />
     </div>
-    </CardsContext.Provider> 
     </CurrentUserContext.Provider>
   );
 }

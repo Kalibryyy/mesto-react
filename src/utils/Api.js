@@ -68,13 +68,13 @@ class Api {
         .catch(this.showError);
     }
 
-  addCard(path, formData) {
+  addCard(path, { name, link }) {
     return fetch(`${this._url}${path}`, {
         method: "POST",
         headers: this.headers,
         body: JSON.stringify({
-          name: formData.name,
-          link: formData.link
+          name: name,
+          link: link
         })
       })
       .then(this.checkStatus)
