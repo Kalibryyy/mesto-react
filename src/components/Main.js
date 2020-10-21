@@ -1,10 +1,13 @@
 import React from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+// import Spinner from '../utils/Spinner';
 
 function Main(props) {
 
     const currentUser = React.useContext(CurrentUserContext);
+
+    // export const spinner = new Spinner(document.querySelector('.spinner'));
 
     return (
         <main className="content">
