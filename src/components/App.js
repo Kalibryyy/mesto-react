@@ -5,6 +5,7 @@ import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditPropfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { CardsContext } from '../contexts/CardsContext';
@@ -94,11 +95,21 @@ function App() {
   function handleUpdateUser({ name, about }) {
     api.updateInfo('users/me', { name, about })
     .then((data) => {
-      console.log(data);
       setCurrentUser(data);
+      closeAllPopups();
     })
     .catch(err => console.log(`Error ${err}`));
-    closeAllPopups();
+  }
+
+  function handleUpdateAvatar({ avatar }) {
+    console.log({ avatar });
+    api.updateAvatar('users/me/avatar', { avatar })
+    .then((data) => {
+      console.log(data);
+      setCurrentUser(data);
+      closeAllPopups();
+    })
+    .catch(err => console.log(`Error ${err}`));
   }
 
   return (
@@ -114,8 +125,7 @@ function App() {
             <input id="card-occupation-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
             <span id="card-occupation-input-error"></span></>} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} isClose={isAddPlacePopupOpen}/>
       <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
-      <PopupWithForm name={'avatar'} title={'Обновить аватар'} children={<><input id="card-avatar-input" type="url" className="modal__input modal__input_type_occupation" name="link" placeholder="Ссылка на картинку" required />
-            <span id="card-avatar-input-error"></span></>} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen}/>
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen} onCardClick={handleCardClick} onUpdateAvatar={handleUpdateAvatar}/> 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} onCardClick={handleCardClick} />
     </div>
     </CardsContext.Provider> 

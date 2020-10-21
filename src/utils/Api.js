@@ -56,12 +56,12 @@ class Api {
       .catch(this.showError);
   }
 
-    updateAvatar(path, url) {
+    updateAvatar(path, { avatar }) {
       return fetch(`${this._url}${path}`, {
         method: "PATCH",
         headers: this.headers,
         body: JSON.stringify({
-          avatar: url
+          avatar: avatar
         })
       })
         .then(this.checkStatus)
