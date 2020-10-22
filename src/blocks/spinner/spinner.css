@@ -1,6 +1,3 @@
-@import url(_hidden/spinner_hidden.css);
-@import url(_visible/spinner_visible.css);
-
 .spinner {
   width: 5em;
   height: 5em;

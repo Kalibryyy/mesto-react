@@ -15,18 +15,23 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isSpinnerLoading, setIsSpinnerLoading] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
+    setIsSpinnerLoading(true);
       api.getAppInfo('users/me', 'cards')
         .then((data) => {
           const [userData, cardsArray] = data;
           setCards(cardsArray);
           setCurrentUser(userData);
           })
-          .catch(err => console.log(`Error ${err}`));
+          .catch(err => console.log(`Error ${err}`))
+          .finally(() => {
+            setIsSpinnerLoading(false);
+          });
   }, []);
 
   function handleEditAvatarClick() {
@@ -123,7 +128,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
       <Header />
-      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} onCardClick={handleCardClick} cards={cards} onCardDelete={handleCardDelete} onCardLike={handleCardLike} />
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onClose={closeAllPopups} 
+      onCardClick={handleCardClick} cards={cards} onCardDelete={handleCardDelete} onCardLike={handleCardLike} isLoading={isSpinnerLoading} />
       <Footer />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isClose={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} /> 
       <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} isClose={isAddPlacePopupOpen} onAddPlace={handleAddPlace}/>

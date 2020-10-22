@@ -33,7 +33,7 @@ function Main(props) {
                 ))}
             </ul>
         </section>
-        <div className="spinner spinner_hidden"><i></i></div>
+        {props.isLoading && <div className="spinner"><i></i></div>}
     </main>
     )
 }
