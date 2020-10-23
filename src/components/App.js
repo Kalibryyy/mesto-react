@@ -106,7 +106,6 @@ function App() {
   }
 
   function handleUpdateAvatar({ avatar }) {
-    console.log({ avatar });
     api.updateAvatar('users/me/avatar', { avatar })
     .then((data) => {
       setCurrentUser(data);
@@ -135,7 +134,7 @@ function App() {
       <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} isClose={isAddPlacePopupOpen} onAddPlace={handleAddPlace}/>
       <PopupWithForm name={'confirm-card-del'} title={'Вы уверены?'} />
       <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} isClose={isEditAvatarPopupOpen} onCardClick={handleCardClick} onUpdateAvatar={handleUpdateAvatar}/> 
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} onCardClick={handleCardClick} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
     </CurrentUserContext.Provider>
   );

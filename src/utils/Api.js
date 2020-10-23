@@ -8,20 +8,18 @@ class Api {
     return fetch(`${this._url}${path}`, {
         headers: this.headers
       })
-      .then(this.checkStatus)
-      .catch(this.showError);
+      .then(this.checkStatus);
   }
 
   getUserInfo(path) {
     return fetch(`${this._url}${path}`, {
         headers: this.headers
       })
-      .then(this.checkStatus)
-      .catch(this.showError);
+      .then(this.checkStatus);
   }
 
   getAppInfo(userDataPath, cardsDataPath) {
-    return Promise.all([this.getUserInfo(userDataPath), this._getInitialCards(cardsDataPath)])
+    return Promise.all([this.getUserInfo(userDataPath), this._getInitialCards(cardsDataPath)]);
   }
 
   updateInfo(path, {name, about}) {
@@ -33,8 +31,7 @@ class Api {
           about: about
         })
       })
-      .then(this.checkStatus)
-      .catch(this.showError);
+      .then(this.checkStatus);
   }
 
   put(path, id) {
@@ -42,8 +39,7 @@ class Api {
         method: "PUT",
         headers: this.headers
       })
-      .then(this.checkStatus)
-      .catch(this.showError);
+      .then(this.checkStatus);
   }
 
   delete(path, id) {
@@ -52,8 +48,7 @@ class Api {
       headers: this.headers
     })
       .then(this.checkStatus)
-      .then(res => res)
-      .catch(this.showError);
+      .then(res => res);
   }
 
     updateAvatar(path, { avatar }) {
@@ -64,8 +59,7 @@ class Api {
           avatar: avatar
         })
       })
-        .then(this.checkStatus)
-        .catch(this.showError);
+        .then(this.checkStatus);
     }
 
   addCard(path, { name, link }) {
@@ -77,16 +71,11 @@ class Api {
           link: link
         })
       })
-      .then(this.checkStatus)
-      .catch(this.showError);
+      .then(this.checkStatus);
   }
 
   checkStatus(res) {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-  }
-
-  showError(err) {
-    return console.log(err);
   }
 }
 
